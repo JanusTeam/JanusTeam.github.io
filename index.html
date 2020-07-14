@@ -77,7 +77,25 @@
 </li>
 </ul>
 </li>
-<li><a href="#janus-Admin-design">IV. janus Admin设计</a></li>
+<li><a href="#janus-Admin-design">IV. janus Admin设计</a>
+<ul class="sectlevel1">
+<li><a href="#_数据库设计">12. 数据库设计</a>
+<ul class="sectlevel2">
+<li><a href="#_db表结构设计">12.1. DB表结构设计</a></li>
+<li><a href="#_api的模型设计">12.2. API的模型设计</a></li>
+</ul>
+</li>
+<li><a href="#_janus_admin使用">13. Janus Admin使用</a>
+<ul class="sectlevel2">
+<li><a href="#_api管理">13.1. API管理</a>
+<ul class="sectlevel3">
+<li><a href="#_新建api">13.1.1. 新建API</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
 </ul>
 </div>
 </div>
@@ -594,13 +612,80 @@ Janus致力于优化API入口的七层协议接入，主要从下面几个方面
 </div>
 </div>
 <h1 id="janus-Admin-design" class="sect0"><a class="anchor" href="#janus-Admin-design"></a><a class="link" href="#janus-Admin-design">IV. janus Admin设计</a></h1>
-<div class="openblock partintro">
+<div class="sect1">
+<h2 id="_数据库设计"><a class="anchor" href="#_数据库设计"></a><a class="link" href="#_数据库设计">12. 数据库设计</a></h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_db表结构设计"><a class="anchor" href="#_db表结构设计"></a><a class="link" href="#_db表结构设计">12.1. DB表结构设计</a></h3>
+
+</div>
+<div class="sect2">
+<h3 id="_api的模型设计"><a class="anchor" href="#_api的模型设计"></a><a class="link" href="#_api的模型设计">12.2. API的模型设计</a></h3>
+<div class="listingblock">
 <div class="content">
-<div class="paragraph">
-<p>include::janus-admin/db-design.adoc</p>
+<pre class="CodeRay highlight"><code data-lang="yml">- <span class="string"><span class="content">id: 7</span></span> <span class="comment">#根据配置的多个Hosts不通过注册中心进行LB  #http://localhost:8081/admin7/menu/manage/allMenu2</span>
+    <span class="key">filters</span>:
+      - <span class="string"><span class="content">name: PathMapping</span></span>
+        <span class="key">args</span>:
+          <span class="key">/admin7/menu/manage/allMenu2</span>: <span class="string"><span class="delimiter">&quot;</span><span class="content">/admin/menu/manage/allMenu</span><span class="delimiter">&quot;</span></span>
+    <span class="key">protocol</span>: <span class="string"><span class="content">lb://hosts</span></span>
+    <span class="key">hosts</span>:
+      - <span class="string"><span class="content">127.0.0.1:8084</span></span>
+      - <span class="string"><span class="content">admin.qingcloud.net:80</span></span>
+    <span class="key">predicates</span>: <span class="comment"># and ; if need or add a new route</span>
+      - <span class="string"><span class="content">name: PathPrecise</span></span>
+        <span class="key">args</span>:
+          <span class="key">paths</span>: <span class="string"><span class="content">/admin7/menu/manage/allMenu2</span></span></code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_janus_admin使用"><a class="anchor" href="#_janus_admin使用"></a><a class="link" href="#_janus_admin使用">13. Janus Admin使用</a></h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_api管理"><a class="anchor" href="#_api管理"></a><a class="link" href="#_api管理">13.1. API管理</a></h3>
+<div class="sect3">
+<h4 id="_新建api"><a class="anchor" href="#_新建api"></a><a class="link" href="#_新建api">13.1.1. 新建API</a></h4>
+<div class="ulist">
+<ul>
+<li>
+<p>新建路由进行负载均衡</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="yml">- <span class="string"><span class="content">id: 7</span></span> <span class="comment">#根据配置的多个Hosts不通过注册中心进行LB  #http://localhost:8081/admin7/menu/manage/allMenu2</span>
+    <span class="key">filters</span>:
+      - <span class="string"><span class="content">name: PathMapping</span></span>
+        <span class="key">args</span>:
+          <span class="key">/admin7/menu/manage/allMenu2</span>: <span class="string"><span class="delimiter">&quot;</span><span class="content">/admin/menu/manage/allMenu</span><span class="delimiter">&quot;</span></span>
+    <span class="key">protocol</span>: <span class="string"><span class="content">lb://hosts</span></span>
+    <span class="key">hosts</span>:
+      - <span class="string"><span class="content">127.0.0.1:8084</span></span>
+      - <span class="string"><span class="content">admin.qingcloud.net:80</span></span>
+    <span class="key">predicates</span>: <span class="comment"># and ; if need or add a new route</span>
+      - <span class="string"><span class="content">name: PathPrecise</span></span>
+        <span class="key">args</span>:
+          <span class="key">paths</span>: <span class="string"><span class="content">/admin7/menu/manage/allMenu2</span></span></code></pre>
+</div>
 </div>
 <div class="paragraph">
-<p>include::janus-admin/guide.adoc</p>
+<p>Janus Admin的UI操作</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/admin/api/lb-hosts1.png" alt="lb hosts1">
+</div>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/admin/api/lb-hosts2.png" alt="lb hosts2">
+</div>
+</div>
+</div>
 </div>
 </div>
 </div>
@@ -608,7 +693,7 @@ Janus致力于优化API入口的七层协议接入，主要从下面几个方面
 <div id="footer">
 <div id="footer-text">
 version: 1.0.0.REALESE<br>
-Last updated 2020-07-14 06:03:08 UTC
+Last updated 2020-07-14 06:05:42 UTC
 </div>
 </div>
 </body>
