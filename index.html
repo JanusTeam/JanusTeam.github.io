@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]-->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="generator" content="Asciidoctor 1.5.8">
+<meta name="description" content="Janus网关是一个高性能的网关，基于Netty研发.">
+<meta name="keywords" content="Janus，Netty">
+<title>Janus Reference Documentation</title>
+<link rel="stylesheet" href="styles/halo.css">
+<link rel="stylesheet" href="styles/coderay-asciidoctor.css">
+</head>
+<body class="book toc2 toc-left">
+<div id="header">
+<h1>Janus Reference Documentation</h1>
+<div class="details">
+<span id="revnumber">version: 1.0.0.REALESE</span>
+<br><span id="revremark">Copyright (c) 2019-2044 xujin (http://xujin.org)</span>
+</div>
+<div id="toc" class="toc2">
+<div id="toctitle">目录</div>
+<ul class="sectlevel1">
+<li><a href="#preface">I. 前言</a></li>
+<li><a href="#release_notes">Release Note</a></li>
+<li><a href="#Halo-introduction">II. Janus 概述</a>
+<ul class="sectlevel1">
+<li><a href="#_janus网关介绍">1. Janus网关介绍</a></li>
+<li><a href="#_janus_基本功能和定位">2. Janus 基本功能和定位</a></li>
+</ul>
+</li>
+<li><a href="#janus-design">III. janus设计</a>
+<ul class="sectlevel1">
+<li><a href="#_janus_filter设计">3. janus filter设计</a>
+<ul class="sectlevel2">
+<li><a href="#_janus_filter流程">3.1. janus filter流程</a></li>
+</ul>
+</li>
+<li><a href="#_janus_路由设计">4. Janus 路由设计</a></li>
+<li><a href="#_janus_netty中的设计">5. Janus Netty中的设计</a>
+<ul class="sectlevel2">
+<li><a href="#_janus_server的设计">5.1. Janus Server的设计</a>
+<ul class="sectlevel4">
+<li><a href="#_网关接受请求的netty_server">5.1.1. 网关接受请求的Netty Server</a></li>
+<li><a href="#_网关转发调用内部源服务的client">5.1.2. 网关转发调用内部源服务的Client</a></li>
+<li><a href="#_网关转发调用源服务的连接池">5.1.3. 网关转发调用源服务的连接池</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#_rpc数据传输">6. RPC数据传输</a></li>
+<li><a href="#_http数据处理">7. http数据处理</a></li>
+<li><a href="#_janus监控告警系统设计">8. Janus监控告警系统设计</a>
+<ul class="sectlevel2">
+<li><a href="#_背景">8.1. 背景</a></li>
+<li><a href="#_应用场景">8.2. 应用场景</a></li>
+</ul>
+</li>
+<li><a href="#_waf2_0">9. WAF2.0</a></li>
+<li><a href="#_janus限流方案设计">10. Janus限流方案设计</a>
+<ul class="sectlevel2">
+<li><a href="#_需求">10.1. 需求</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div id="content">
+<div class="sect1">
+<h2 id="preface"><a class="anchor" href="#preface"></a><a class="link" href="#preface">I. 前言</a></h2>
+<div class="sectionbody">
+<div class="openblock">
+<div class="content">
+<div class="paragraph">
+<p>本文档是Janus Reference Documentation</p>
+</div>
+<div class="paragraph">
+<p>总之,Janus是一个基于Netty自主研发的高性能网关</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="release_notes"><a class="anchor" href="#release_notes"></a><a class="link" href="#release_notes">Release Note</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>关于Janus的Release Note可以访问<a href="#Janus-Release-Note">[Janus-Release-Note]</a></p>
+</div>
+</div>
+</div>
+<h1 id="Halo-introduction" class="sect0"><a class="anchor" href="#Halo-introduction"></a><a class="link" href="#Halo-introduction">II. Janus 概述</a></h1>
+<div class="sect1">
+<h2 id="_janus网关介绍"><a class="anchor" href="#_janus网关介绍"></a><a class="link" href="#_janus网关介绍">1. Janus网关介绍</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Janus（汉译作“杰纳斯”或“雅努斯”）是天门神,早晨打开天门，让阳光普照人间，晚上又把天门关上，使黑暗降临大地。他的头部前后各有一副面孔，同时看着两个不同方向，一副看着过去，一副看着未来，因此也称两面神</p>
+</div>
+<div class="paragraph">
+<p>Janus掌握所有对外接口的进出.</p>
+</div>
+<div class="paragraph">
+<p>服务网关Janus是Halo体系的一个组成模块，为各业务开发部门开发的业务服务（RESTful、RPC）提供对外统一的，高性能的HTTP网关。<br>
+Janus致力于优化API入口的七层协议接入，主要从下面几个方面进行优化：<br></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>协议支持：外网HTTPS、HTTP2、HTTP、自定义协议等，自动适配到内网RPC协议和HTTP协议。</p>
+</li>
+<li>
+<p>接入优化：SSL session复用、SSL 加解密异步化、异地多活、流量管控</p>
+</li>
+<li>
+<p>安全： 认证验签、验签加固、设备指纹、WAF、防刷、限流、风控</p>
+</li>
+<li>
+<p>其他： 单元化、轻量数据聚合、A/B test, mock api, 多租户等</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_janus_基本功能和定位"><a class="anchor" href="#_janus_基本功能和定位"></a><a class="link" href="#_janus_基本功能和定位">2. Janus 基本功能和定位</a></h2>
+<div class="sectionbody">
+
+</div>
+</div>
+<h1 id="janus-design" class="sect0"><a class="anchor" href="#janus-design"></a><a class="link" href="#janus-design">III. janus设计</a></h1>
+<div class="sect1">
+<h2 id="_janus_filter设计"><a class="anchor" href="#_janus_filter设计"></a><a class="link" href="#_janus_filter设计">3. janus filter设计</a></h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_janus_filter流程"><a class="anchor" href="#_janus_filter流程"></a><a class="link" href="#_janus_filter流程">3.1. janus filter流程</a></h3>
+
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_janus_路由设计"><a class="anchor" href="#_janus_路由设计"></a><a class="link" href="#_janus_路由设计">4. Janus 路由设计</a></h2>
+<div class="sectionbody">
+
+</div>
+</div>
+<div class="sect1">
+<h2 id="_janus_netty中的设计"><a class="anchor" href="#_janus_netty中的设计"></a><a class="link" href="#_janus_netty中的设计">5. Janus Netty中的设计</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>org.xujin.janus.core.netty.client.NettyConnectClient</p>
+</div>
+<div class="paragraph">
+<p>org.xujin.janus.core.netty.server.NettyServer-&#8594;NettyServerHandler</p>
+</div>
+<div class="sect2">
+<h3 id="_janus_server的设计"><a class="anchor" href="#_janus_server的设计"></a><a class="link" href="#_janus_server的设计">5.1. Janus Server的设计</a></h3>
+<div class="sect4">
+<h5 id="_网关接受请求的netty_server"><a class="anchor" href="#_网关接受请求的netty_server"></a><a class="link" href="#_网关接受请求的netty_server">5.1.1. 网关接受请求的Netty Server</a></h5>
+<div class="paragraph">
+<p>org.xujin.janus.core.netty.NettyServer.java</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="java"><span class="comment">/**
+  * 初始化EventPool 参数
+*/</span>
+ <span class="directive">private</span> <span class="type">void</span> initEventPool() {
+        bossGroup = <span class="keyword">new</span> NioEventLoopGroup(serverConfig.getBossThread(), <span class="keyword">new</span> <span class="predefined-type">ThreadFactory</span>() {
+            <span class="directive">private</span> <span class="predefined-type">AtomicInteger</span> index = <span class="keyword">new</span> <span class="predefined-type">AtomicInteger</span>(<span class="integer">0</span>);
+
+            <span class="annotation">@Override</span>
+            <span class="directive">public</span> <span class="predefined-type">Thread</span> newThread(<span class="predefined-type">Runnable</span> r) {
+                <span class="keyword">return</span> <span class="keyword">new</span> <span class="predefined-type">Thread</span>(r, <span class="string"><span class="delimiter">&quot;</span><span class="content">Janus_Boss_</span><span class="delimiter">&quot;</span></span> + index.incrementAndGet());
+            }
+        });
+        workGroup = <span class="keyword">new</span> NioEventLoopGroup(serverConfig.getWorkThread(), <span class="keyword">new</span> <span class="predefined-type">ThreadFactory</span>() {
+            <span class="directive">private</span> <span class="predefined-type">AtomicInteger</span> index = <span class="keyword">new</span> <span class="predefined-type">AtomicInteger</span>(<span class="integer">0</span>);
+
+            <span class="annotation">@Override</span>
+            <span class="directive">public</span> <span class="predefined-type">Thread</span> newThread(<span class="predefined-type">Runnable</span> r) {
+                <span class="keyword">return</span> <span class="keyword">new</span> <span class="predefined-type">Thread</span>(r, <span class="string"><span class="delimiter">&quot;</span><span class="content">Janus_Work_</span><span class="delimiter">&quot;</span></span> + index.incrementAndGet());
+            }
+        });
+
+ }
+
+ <span class="comment">/**
+     * 服务开启
+     */</span>
+ <span class="directive">public</span> <span class="type">void</span> start(<span class="type">int</span> port) {
+     <span class="comment">//TODO 上生产时去掉</span>
+     ResourceLeakDetector.setLevel(ResourceLeakDetector.Level.ADVANCED);
+     initEventPool();
+     ServerBootstrap bootstrap = <span class="keyword">new</span> ServerBootstrap();
+     <span class="comment">//绑定线程池</span>
+     bootstrap.group(bossGroup, workGroup)
+                .channel(NioServerSocketChannel.class) <span class="comment">//指定使用的channel</span>
+                .option(ChannelOption.SO_REUSEADDR, serverConfig.isReUseAddr())
+                .option(ChannelOption.SO_BACKLOG, serverConfig.getBackLog())
+                .childOption(ChannelOption.SO_RCVBUF, serverConfig.getRevBuf())
+                .childOption(ChannelOption.SO_SNDBUF, serverConfig.getSndBuf())
+                .childOption(ChannelOption.TCP_NODELAY, serverConfig.isTcpNoDelay())
+                .childOption(ChannelOption.SO_KEEPALIVE, serverConfig.isKeepalive())
+                .childHandler(initChildHandler());
+
+      bootstrap.bind(port).addListener((ChannelFutureListener) channelFuture -&gt; {
+            <span class="keyword">if</span> (channelFuture.isSuccess()) {
+                changeOnLine(<span class="predefined-constant">true</span>);
+                log.info(<span class="string"><span class="delimiter">&quot;</span><span class="content">服务端启动成功【</span><span class="delimiter">&quot;</span></span> + IpUtils.getHost() + <span class="string"><span class="delimiter">&quot;</span><span class="content">:</span><span class="delimiter">&quot;</span></span> + port + <span class="string"><span class="delimiter">&quot;</span><span class="content">】</span><span class="delimiter">&quot;</span></span>);
+            } <span class="keyword">else</span> {
+                log.error(<span class="string"><span class="delimiter">&quot;</span><span class="content">服务端启动失败【</span><span class="delimiter">&quot;</span></span> + IpUtils.getHost() + <span class="string"><span class="delimiter">&quot;</span><span class="content">:</span><span class="delimiter">&quot;</span></span> + port + <span class="string"><span class="delimiter">&quot;</span><span class="content">】,cause:</span><span class="delimiter">&quot;</span></span>
+                        + channelFuture.cause().getMessage());
+                shutdown(port);
+            }
+        });
+  }</code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Netty的Server端，不管是Netty Server端和Client端都有NioEventLoopGroup</p>
+</li>
+<li>
+<p>因为是Netty Server端,所以Channel类型是NioServerSocketChannel.</p>
+</li>
+<li>
+<p>childHandler(initChildHandler())是基于Pipeline的自定义Handler机制。</p>
+</li>
+<li>
+<p>EventLoopGroup：无论是服务端还是客户端，都必须指定EventLoopGroup。
+在上面的代码中，
+指定了NioEventLoopGroup，表示一个NIO的EventLoopGroup，不过服务端需要指定两个EventLoopGroup，一个是bossGroup，
+用于处理客户端的连接请求；另一个是workerGroup，用于处理与各个客户端连接的I/O操作。
+（2）指定Channel的类型。这里是服务端，所以使用了NioServerSocketChannel。
+（3）配置自定义的业务处理器Handler。</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>谭勇德（Tom）. Netty 4核心原理与手写RPC框架实战 (Chinese Edition) (Kindle 位置 1567-1570). Kindle 版本.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="java"><span class="annotation">@SuppressWarnings</span>(<span class="string"><span class="delimiter">&quot;</span><span class="content">rawtypes</span><span class="delimiter">&quot;</span></span>)
+<span class="directive">private</span> ChannelInitializer initChildHandler() {
+<span class="keyword">return</span> <span class="keyword">new</span> ChannelInitializer&lt;<span class="predefined-type">SocketChannel</span>&gt;() {
+<span class="directive">final</span> <span class="predefined-type">ThreadPoolExecutor</span> serverHandlerPool = ThreadPoolUtils.makeServerThreadPool(NettyServer.class.getSimpleName());
+<span class="comment">//网关Server的Http请求入口Handler</span>
+<span class="directive">final</span> NettyServerHandler nettyServerHandler = <span class="keyword">new</span> NettyServerHandler(serverHandlerPool);
+
+            <span class="annotation">@Override</span>
+            <span class="directive">protected</span> <span class="type">void</span> initChannel(<span class="predefined-type">SocketChannel</span> ch) <span class="directive">throws</span> <span class="exception">Exception</span> {
+                <span class="comment">//initHandler(ch.pipeline(), serverConfig);</span>
+                ch.pipeline().addLast(<span class="keyword">new</span> IdleStateHandler(<span class="integer">180</span>, <span class="integer">0</span>, <span class="integer">0</span>));
+                ch.pipeline().addLast(<span class="string"><span class="delimiter">&quot;</span><span class="content">logging</span><span class="delimiter">&quot;</span></span>, <span class="keyword">new</span> LoggingHandler(LogLevel.DEBUG));
+                <span class="comment">// We want to allow longer request lines, headers, and chunks</span>
+                <span class="comment">// respectively.</span>
+                ch.pipeline().addLast(<span class="string"><span class="delimiter">&quot;</span><span class="content">decoder</span><span class="delimiter">&quot;</span></span>, <span class="keyword">new</span> HttpRequestDecoder(
+                        serverConfig.getMaxInitialLineLength(),
+                        serverConfig.getMaxHeaderSize(),
+                        serverConfig.getMaxChunkSize()));
+                <span class="comment">//ch.pipeline().addLast(&quot;inflater&quot;, new HttpContentDecompressor());</span>
+                ch.pipeline().addLast(<span class="string"><span class="delimiter">&quot;</span><span class="content">aggregator</span><span class="delimiter">&quot;</span></span>, <span class="keyword">new</span> HttpObjectAggregator(serverConfig.getMaxHttpLength()));
+                <span class="comment">//响应解码器</span>
+                ch.pipeline().addLast(<span class="string"><span class="delimiter">&quot;</span><span class="content">http-encoder</span><span class="delimiter">&quot;</span></span>, <span class="keyword">new</span> HttpResponseEncoder());
+                <span class="comment">//目的是支持异步大文件传输（）</span>
+                ch.pipeline().addLast(<span class="string"><span class="delimiter">&quot;</span><span class="content">http-chunked</span><span class="delimiter">&quot;</span></span>, <span class="keyword">new</span> ChunkedWriteHandler());
+                <span class="comment">//网关Server的Netty HTTP连接处理类</span>
+                ch.pipeline().addLast(<span class="string"><span class="delimiter">&quot;</span><span class="content">process</span><span class="delimiter">&quot;</span></span>, nettyServerHandler);
+            }
+        };
+    }</code></pre>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_网关转发调用内部源服务的client"><a class="anchor" href="#_网关转发调用内部源服务的client"></a><a class="link" href="#_网关转发调用内部源服务的client">5.1.2. 网关转发调用内部源服务的Client</a></h5>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>网关内部转发的客户端Java类 org.xujin.janus.core.netty.client.NettyConnectClient.java</p>
+</li>
+</ol>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="java"><span class="annotation">@Slf4j</span>
+<span class="directive">public</span> <span class="type">class</span> <span class="class">NettyConnectClient</span> <span class="directive">extends</span> ConnectClient {
+
+    <span class="directive">public</span>  NioEventLoopGroup clientGroup = <span class="keyword">new</span> NioEventLoopGroup(<span class="integer">0</span>,
+            <span class="keyword">new</span> DefaultThreadFactory(<span class="string"><span class="delimiter">&quot;</span><span class="content">Janus-client-Worker</span><span class="delimiter">&quot;</span></span>, <span class="predefined-constant">true</span>));
+
+    <span class="directive">private</span> <span class="predefined-type">Channel</span> channel;
+
+    <span class="annotation">@Override</span>
+    <span class="directive">public</span> <span class="type">void</span> init(<span class="predefined-type">String</span> address) <span class="directive">throws</span> <span class="exception">Exception</span> {
+
+        <span class="predefined-type">Object</span><span class="type">[]</span> array = IpUtils.parseIpPort(address);
+        <span class="predefined-type">String</span> host = (<span class="predefined-type">String</span>) array[<span class="integer">0</span>];
+        <span class="type">int</span> port = (<span class="type">int</span>) array[<span class="integer">1</span>];
+
+        Bootstrap bootstrap = <span class="keyword">new</span> Bootstrap();
+        bootstrap.group(clientGroup)
+                .channel(NioSocketChannel.class)
+                .handler(<span class="keyword">new</span> ChannelInitializer&lt;<span class="predefined-type">SocketChannel</span>&gt;() {
+                    <span class="annotation">@Override</span>
+                    <span class="directive">public</span> <span class="type">void</span> initChannel(<span class="predefined-type">SocketChannel</span> channel) <span class="directive">throws</span> <span class="exception">Exception</span> {
+                        channel.pipeline()
+                                .addLast(<span class="keyword">new</span> IdleStateHandler(<span class="integer">0</span>, <span class="integer">0</span>, <span class="integer">60</span>, <span class="predefined-type">TimeUnit</span>.SECONDS))
+<span class="comment">//                                .addLast(new HttpClientCodec())</span>
+<span class="comment">//                                .addLast(new HttpObjectAggregator(65536))</span>
+                                <span class="comment">//解压</span>
+                                <span class="comment">//.addLast(new HttpContentDecompressor())</span>
+                                .addLast(<span class="keyword">new</span> HttpClientCodec(NettyConstants.MAX_INITIAL_LINE_LENGTH,NettyConstants.MAX_HEADER_SIZE, NettyConstants.MAX_CHUNK_SIZE),
+                                <span class="keyword">new</span> HttpObjectAggregator(NettyConstants.MAX_RESPONSE_SIZE))
+                                <span class="comment">//Netty Client把请求转发给内网源服务的Handler</span>
+                                .addLast(<span class="string"><span class="delimiter">&quot;</span><span class="content">handler</span><span class="delimiter">&quot;</span></span>, <span class="keyword">new</span> NettyClientHandler());
+                    }
+                })
+                .option(ChannelOption.TCP_NODELAY, <span class="predefined-constant">true</span>)
+                .option(ChannelOption.SO_KEEPALIVE, <span class="predefined-constant">true</span>)
+                .option(ChannelOption.CONNECT_TIMEOUT_MILLIS, <span class="integer">60</span>*<span class="integer">1000</span>);
+        <span class="local-variable">this</span>.channel = bootstrap.connect(host, port).sync().channel();
+        <span class="comment">// valid</span>
+        <span class="keyword">if</span> (!isValidate()) {
+            close();
+            <span class="keyword">return</span>;
+        }
+
+        log.debug(<span class="string"><span class="delimiter">&quot;</span><span class="content">netty client proxy, connect to server success at host:{}, port:{}</span><span class="delimiter">&quot;</span></span>, host, port);
+    }
+}</code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Netty客户端必须有NioEventLoopGroup</p>
+</li>
+<li>
+<p>ChannelType：指定Channel的类型。因为是客户端，所以使用了NioSocketChannel。</p>
+</li>
+<li>
+<p>new NioEventLoopGroup()核心线程数是CPU*2，如果我们传入的线程数nThreads是0，那么Netty会设置默认的线程数DEFAULT_EVENT_LOOP_THREADS，而这个默认的</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Netty的客户端如何发起TCP长连接</p>
+</div>
+<div class="paragraph">
+<p>bootstrap.connect(host, port).sync().channel()</p>
+</div>
+<div class="paragraph">
+<p>客户端通过调用Bootstrap的connect()方法进行连接。在connect()方法中进行一些参数检查，并调用doConnect()方法，</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="java"><span class="directive">static</span> {
+    DEFAULT_EVENT_LOOP_THREADS = <span class="predefined-type">Math</span>.max(<span class="integer">1</span>, SystemPropertyUtil.getInt(
+                <span class="string"><span class="delimiter">&quot;</span><span class="content">io.netty.eventLoopThreads</span><span class="delimiter">&quot;</span></span>, NettyRuntime.availableProcessors() * <span class="integer">2</span>));
+
+    <span class="keyword">if</span> (logger.isDebugEnabled()) {
+            logger.debug(<span class="string"><span class="delimiter">&quot;</span><span class="content">-Dio.netty.eventLoopThreads: {}</span><span class="delimiter">&quot;</span></span>, DEFAULT_EVENT_LOOP_THREADS);
+        }
+}
+
+<span class="comment">/**
+* @see MultithreadEventExecutorGroup#MultithreadEventExecutorGroup(int, ThreadFactory, Object...)
+*/</span>
+<span class="directive">protected</span> MultithreadEventLoopGroup(<span class="type">int</span> nThreads, <span class="predefined-type">ThreadFactory</span> threadFactory, <span class="predefined-type">Object</span>... args) {
+<span class="local-variable">super</span>(nThreads == <span class="integer">0</span> ? DEFAULT_EVENT_LOOP_THREADS : nThreads, threadFactory, args);
+}</code></pre>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_网关转发调用源服务的连接池"><a class="anchor" href="#_网关转发调用源服务的连接池"></a><a class="link" href="#_网关转发调用源服务的连接池">5.1.3. 网关转发调用源服务的连接池</a></h5>
+<div class="paragraph">
+<p>网关Server内置的Netty客户端不是每次转发都立即创建一个连接,而是从连接池中获取一个连接。</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_rpc数据传输"><a class="anchor" href="#_rpc数据传输"></a><a class="link" href="#_rpc数据传输">6. RPC数据传输</a></h2>
+<div class="sectionbody">
+
+</div>
+</div>
+<div class="sect1">
+<h2 id="_http数据处理"><a class="anchor" href="#_http数据处理"></a><a class="link" href="#_http数据处理">7. http数据处理</a></h2>
+<div class="sectionbody">
+
+</div>
+</div>
+<div class="sect1">
+<h2 id="_janus监控告警系统设计"><a class="anchor" href="#_janus监控告警系统设计"></a><a class="link" href="#_janus监控告警系统设计">8. Janus监控告警系统设计</a></h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_背景"><a class="anchor" href="#_背景"></a><a class="link" href="#_背景">8.1. 背景</a></h3>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>需要统一的流量统计、监控告警指标，以便对Janus系统性能、运行状态进行分析。</p>
+</li>
+<li>
+<p>Janus网关需要对进来的业务流量进行监控、统计和实时告警，以让业务方了解他们的服务经过Janus的实时状态。</p>
+</li>
+<li>
+<p>对Janus本身运行情况进行监控和告警，以便发现Janus系统的问题，对产品持续做改进。</p>
+</li>
+<li>
+<p>通过监控告警，直接定位到相应的处理人员，提高故障处理效率。</p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_应用场景"><a class="anchor" href="#_应用场景"></a><a class="link" href="#_应用场景">8.2. 应用场景</a></h3>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>业务方人员。了解服务调用统计信息、调用耗时、出错率、异常等信息，方便排查问题。</p>
+</li>
+<li>
+<p>Janus开发人员。评估系统性能、流量负载情况，发现系统运行问题。</p>
+</li>
+<li>
+<p>系统运维人员。了解Janus机器和进程运行状态，机器负载，以发现集群运行问题。</p>
+</li>
+</ol>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_waf2_0"><a class="anchor" href="#_waf2_0"></a><a class="link" href="#_waf2_0">9. WAF2.0</a></h2>
+<div class="sectionbody">
+
+</div>
+</div>
+<div class="sect1">
+<h2 id="_janus限流方案设计"><a class="anchor" href="#_janus限流方案设计"></a><a class="link" href="#_janus限流方案设计">10. Janus限流方案设计</a></h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_需求"><a class="anchor" href="#_需求"></a><a class="link" href="#_需求">10.1. 需求</a></h3>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>保证Janus服务器在 瞬间 极限流量的冲击下，稳定提供服务。</p>
+</li>
+</ol>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div id="footer">
+<div id="footer-text">
+version: 1.0.0.REALESE<br>
+Last updated 2020-07-14 03:53:29 UTC
+</div>
+</div>
+</body>
+</html>
