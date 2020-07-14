@@ -385,14 +385,15 @@ Janus致力于优化API入口的七层协议接入，主要从下面几个方面
 <p>EventLoopGroup：无论是服务端还是客户端，都必须指定EventLoopGroup。
 在上面的代码中，
 指定了NioEventLoopGroup，表示一个NIO的EventLoopGroup，不过服务端需要指定两个EventLoopGroup，一个是bossGroup，
-用于处理客户端的连接请求；另一个是workerGroup，用于处理与各个客户端连接的I/O操作。
-（2）指定Channel的类型。这里是服务端，所以使用了NioServerSocketChannel。
-（3）配置自定义的业务处理器Handler。</p>
+用于处理客户端的连接请求；另一个是workerGroup，用于处理与各个客户端连接的I/O操作。</p>
 </li>
 </ul>
 </div>
 <div class="paragraph">
-<p>谭勇德（Tom）. Netty 4核心原理与手写RPC框架实战 (Chinese Edition) (Kindle 位置 1567-1570). Kindle 版本.</p>
+<p>（2）指定Channel的类型。这里是服务端，所以使用了NioServerSocketChannel。</p>
+</div>
+<div class="paragraph">
+<p>（3）配置自定义的业务处理器Handler。</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -693,7 +694,7 @@ Janus致力于优化API入口的七层协议接入，主要从下面几个方面
 <div id="footer">
 <div id="footer-text">
 version: 1.0.0.REALESE<br>
-Last updated 2020-07-14 06:13:59 UTC
+Last updated 2020-07-14 06:18:11 UTC
 </div>
 </div>
 </body>
