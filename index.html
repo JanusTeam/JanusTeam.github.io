@@ -33,8 +33,9 @@
 <ul class="sectlevel1">
 <li><a href="#_janus_filter设计">3. janus filter设计</a>
 <ul class="sectlevel2">
-<li><a href="#_filter执行流程">3.1. filter执行流程</a></li>
-<li><a href="#_invoke_filter设计">3.2. Invoke Filter设计</a></li>
+<li><a href="#_filter设计">3.1. Filter设计</a></li>
+<li><a href="#_filter执行流程">3.2. filter执行流程</a></li>
+<li><a href="#_invoke_filter设计">3.3. Invoke Filter设计</a></li>
 </ul>
 </li>
 <li><a href="#_janus_路由设计">4. Janus 路由设计</a>
@@ -92,6 +93,11 @@
 <li><a href="#_新建api">13.1.1. 新建API</a></li>
 </ul>
 </li>
+</ul>
+</li>
+<li><a href="#_开发者手册">14. 开发者手册</a>
+<ul class="sectlevel2">
+<li><a href="#_启动janus_server">14.1. 启动Janus Server</a></li>
 </ul>
 </li>
 </ul>
@@ -166,11 +172,21 @@ Janus致力于优化API入口的七层协议接入，主要从下面几个方面
 <h2 id="_janus_filter设计"><a class="anchor" href="#_janus_filter设计"></a><a class="link" href="#_janus_filter设计">3. janus filter设计</a></h2>
 <div class="sectionbody">
 <div class="sect2">
-<h3 id="_filter执行流程"><a class="anchor" href="#_filter执行流程"></a><a class="link" href="#_filter执行流程">3.1. filter执行流程</a></h3>
+<h3 id="_filter设计"><a class="anchor" href="#_filter设计"></a><a class="link" href="#_filter设计">3.1. Filter设计</a></h3>
+<div class="paragraph">
+<p>责任链模式是实现了类似「流水线」结构的逐级处理，通常是一条链式结构，将「抽象处理者」的不同实现串联起来：
+如果当前节点能够处理任务则直接处理掉，如果无法处理则委托给责任链的下一个节点，如此往复直到有节点可以处理这个任务。</p>
+</div>
+<div class="paragraph">
+<p>Filter链的设计正式采用了这种责任链的设计方式</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_filter执行流程"><a class="anchor" href="#_filter执行流程"></a><a class="link" href="#_filter执行流程">3.2. filter执行流程</a></h3>
 
 </div>
 <div class="sect2">
-<h3 id="_invoke_filter设计"><a class="anchor" href="#_invoke_filter设计"></a><a class="link" href="#_invoke_filter设计">3.2. Invoke Filter设计</a></h3>
+<h3 id="_invoke_filter设计"><a class="anchor" href="#_invoke_filter设计"></a><a class="link" href="#_invoke_filter设计">3.3. Invoke Filter设计</a></h3>
 
 </div>
 </div>
@@ -690,11 +706,41 @@ Janus致力于优化API入口的七层协议接入，主要从下面几个方面
 </div>
 </div>
 </div>
+<div class="sect1">
+<h2 id="_开发者手册"><a class="anchor" href="#_开发者手册"></a><a class="link" href="#_开发者手册">14. 开发者手册</a></h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_启动janus_server"><a class="anchor" href="#_启动janus_server"></a><a class="link" href="#_启动janus_server">14.1. 启动Janus Server</a></h3>
+<div class="paragraph">
+<p>在IDEA中运行JanusServerApplication.java,设置启动参数即可。
+eg:-Dcluster=Janus_Test -Dlocal=true,如下图所示:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/dev-guide/1.png" alt="1" width="100%">
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Note</div>
+</td>
+<td class="content">
+-Dcluster=Janus_Test是网关集群编码Janus_Test,
+-Dlocal=true表示启动的时候读取本地配置文件,而不是远端配置文件
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+</div>
 </div>
 <div id="footer">
 <div id="footer-text">
 version: 1.0.0.REALESE<br>
-Last updated 2020-07-14 06:18:11 UTC
+Last updated 2020-07-15 07:55:52 UTC
 </div>
 </div>
 </body>
