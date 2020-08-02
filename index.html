@@ -27,77 +27,83 @@
 <ul class="sectlevel1">
 <li><a href="#_janus网关介绍">1. Janus网关介绍</a></li>
 <li><a href="#_janus_基本功能和定位">2. Janus 基本功能和定位</a></li>
+<li><a href="#_janus_项目">3. Janus 项目</a>
+<ul class="sectlevel2">
+<li><a href="#_janus_team">3.1. Janus Team</a></li>
+<li><a href="#_janus工程">3.2. Janus工程</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li><a href="#janus-design">III. janus设计</a>
 <ul class="sectlevel1">
-<li><a href="#_janus_filter设计">3. janus filter设计</a>
+<li><a href="#_janus_filter设计">4. janus filter设计</a>
 <ul class="sectlevel2">
-<li><a href="#_filter设计">3.1. Filter设计</a></li>
-<li><a href="#_filter执行流程">3.2. filter执行流程</a></li>
-<li><a href="#_invoke_filter设计">3.3. Invoke Filter设计</a></li>
+<li><a href="#_filter设计">4.1. Filter设计</a></li>
+<li><a href="#_filter执行流程">4.2. filter执行流程</a></li>
+<li><a href="#_invoke_filter设计">4.3. Invoke Filter设计</a></li>
 </ul>
 </li>
-<li><a href="#_janus_路由设计">4. Janus 路由设计</a>
+<li><a href="#_janus_路由设计">5. Janus 路由设计</a>
 <ul class="sectlevel2">
-<li><a href="#_路由模型设计">4.1. 路由模型设计</a></li>
-<li><a href="#_示例路由配置">4.2. 示例路由配置</a></li>
+<li><a href="#_路由模型设计">5.1. 路由模型设计</a></li>
+<li><a href="#_示例路由配置">5.2. 示例路由配置</a></li>
 </ul>
 </li>
-<li><a href="#_janus_predicates断言设计">5. Janus Predicates(断言设计)</a>
+<li><a href="#_janus_predicates断言设计">6. Janus Predicates(断言设计)</a>
 <ul class="sectlevel2">
-<li><a href="#_断言设计">5.1. 断言设计</a></li>
-<li><a href="#_精准匹配">5.2. 精准匹配</a></li>
-<li><a href="#_模糊匹配">5.3. 模糊匹配</a></li>
+<li><a href="#_断言设计">6.1. 断言设计</a></li>
+<li><a href="#_精准匹配">6.2. 精准匹配</a></li>
+<li><a href="#_模糊匹配">6.3. 模糊匹配</a></li>
 </ul>
 </li>
-<li><a href="#_janus_netty中的设计">6. Janus Netty中的设计</a>
+<li><a href="#_janus_netty中的设计">7. Janus Netty中的设计</a>
 <ul class="sectlevel2">
-<li><a href="#_janus_server的设计">6.1. Janus Server的设计</a>
+<li><a href="#_janus_server的设计">7.1. Janus Server的设计</a>
 <ul class="sectlevel4">
-<li><a href="#_网关接受请求的netty_server">6.1.1. 网关接受请求的Netty Server</a></li>
-<li><a href="#_网关转发调用内部源服务的client">6.1.2. 网关转发调用内部源服务的Client</a></li>
-<li><a href="#_网关转发调用源服务的连接池">6.1.3. 网关转发调用源服务的连接池</a></li>
+<li><a href="#_网关接受请求的netty_server">7.1.1. 网关接受请求的Netty Server</a></li>
+<li><a href="#_网关转发调用内部源服务的client">7.1.2. 网关转发调用内部源服务的Client</a></li>
+<li><a href="#_网关转发调用源服务的连接池">7.1.3. 网关转发调用源服务的连接池</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li><a href="#_rpc数据传输">7. RPC数据传输</a></li>
-<li><a href="#_http数据处理">8. http数据处理</a></li>
-<li><a href="#_janus监控告警系统设计">9. Janus监控告警系统设计</a>
+<li><a href="#_rpc数据传输">8. RPC数据传输</a></li>
+<li><a href="#_http数据处理">9. http数据处理</a></li>
+<li><a href="#_janus监控告警系统设计">10. Janus监控告警系统设计</a>
 <ul class="sectlevel2">
-<li><a href="#_背景">9.1. 背景</a></li>
-<li><a href="#_应用场景">9.2. 应用场景</a></li>
+<li><a href="#_背景">10.1. 背景</a></li>
+<li><a href="#_应用场景">10.2. 应用场景</a></li>
 </ul>
 </li>
-<li><a href="#_waf2_0">10. WAF2.0</a></li>
-<li><a href="#_janus限流方案设计">11. Janus限流方案设计</a>
+<li><a href="#_waf2_0">11. WAF2.0</a></li>
+<li><a href="#_janus限流方案设计">12. Janus限流方案设计</a>
 <ul class="sectlevel2">
-<li><a href="#_需求">11.1. 需求</a></li>
+<li><a href="#_需求">12.1. 需求</a></li>
 </ul>
 </li>
 </ul>
 </li>
 <li><a href="#janus-Admin-design">IV. janus Admin设计</a>
 <ul class="sectlevel1">
-<li><a href="#_数据库设计">12. 数据库设计</a>
+<li><a href="#_数据库设计">13. 数据库设计</a>
 <ul class="sectlevel2">
-<li><a href="#_db表结构设计">12.1. DB表结构设计</a></li>
-<li><a href="#_api的模型设计">12.2. API的模型设计</a></li>
+<li><a href="#_db表结构设计">13.1. DB表结构设计</a></li>
+<li><a href="#_api的模型设计">13.2. API的模型设计</a></li>
 </ul>
 </li>
-<li><a href="#_janus_admin使用">13. Janus Admin使用</a>
+<li><a href="#_janus_admin使用">14. Janus Admin使用</a>
 <ul class="sectlevel2">
-<li><a href="#_api管理">13.1. API管理</a>
+<li><a href="#_api管理">14.1. API管理</a>
 <ul class="sectlevel3">
-<li><a href="#_新建api">13.1.1. 新建API</a></li>
+<li><a href="#_新建api">14.1.1. 新建API</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li><a href="#_开发者手册">14. 开发者手册</a>
+<li><a href="#_开发者手册">15. 开发者手册</a>
 <ul class="sectlevel2">
-<li><a href="#_启动janus_server">14.1. 启动Janus Server</a></li>
+<li><a href="#_启动janus_server">15.1. 启动Janus Server</a></li>
 </ul>
 </li>
 </ul>
@@ -167,12 +173,96 @@ Janus致力于优化API入口的七层协议接入，主要从下面几个方面
 
 </div>
 </div>
-<h1 id="janus-design" class="sect0"><a class="anchor" href="#janus-design"></a><a class="link" href="#janus-design">III. janus设计</a></h1>
 <div class="sect1">
-<h2 id="_janus_filter设计"><a class="anchor" href="#_janus_filter设计"></a><a class="link" href="#_janus_filter设计">3. janus filter设计</a></h2>
+<h2 id="_janus_项目"><a class="anchor" href="#_janus_项目"></a><a class="link" href="#_janus_项目">3. Janus 项目</a></h2>
 <div class="sectionbody">
 <div class="sect2">
-<h3 id="_filter设计"><a class="anchor" href="#_filter设计"></a><a class="link" href="#_filter设计">3.1. Filter设计</a></h3>
+<h3 id="_janus_team"><a class="anchor" href="#_janus_team"></a><a class="link" href="#_janus_team">3.1. Janus Team</a></h3>
+<div class="paragraph">
+<p>Janus Team开发团队信息如下，感谢所有对Janus有贡献的所有人！</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 25%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">github id</th>
+<th class="tableblock halign-left valign-top">角色</th>
+<th class="tableblock halign-left valign-top">github地址</th>
+<th class="tableblock halign-left valign-top">备注</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">SoftwareKing</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">PPMC</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://github.com/SoftwareKing" class="bare">https://github.com/SoftwareKing</a></p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">wolfgump</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">PPMC</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://github.com/wolfgump" class="bare">https://github.com/wolfgump</a></p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">tbkk</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">PPMC</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://github.com/tbkk" class="bare">https://github.com/tbkk</a></p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect2">
+<h3 id="_janus工程"><a class="anchor" href="#_janus工程"></a><a class="link" href="#_janus工程">3.2. Janus工程</a></h3>
+<div class="paragraph">
+<p>Janus工程主要为3个项目，如下所示:</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 33.3333%;">
+<col style="width: 33.3334%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">工程名</th>
+<th class="tableblock halign-left valign-top">说明</th>
+<th class="tableblock halign-left valign-top">github地址</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">janus</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">janus网关Server</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://github.com/JanusTeam/Janus" class="bare">https://github.com/JanusTeam/Janus</a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">janus-ui</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">janus管控平台前端</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://github.com/JanusTeam/janus-ui" class="bare">https://github.com/JanusTeam/janus-ui</a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">janus-admin</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Janus网关的管控平台后端</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">暂无</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<h1 id="janus-design" class="sect0"><a class="anchor" href="#janus-design"></a><a class="link" href="#janus-design">III. janus设计</a></h1>
+<div class="sect1">
+<h2 id="_janus_filter设计"><a class="anchor" href="#_janus_filter设计"></a><a class="link" href="#_janus_filter设计">4. janus filter设计</a></h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_filter设计"><a class="anchor" href="#_filter设计"></a><a class="link" href="#_filter设计">4.1. Filter设计</a></h3>
 <div class="paragraph">
 <p>责任链模式是实现了类似「流水线」结构的逐级处理，通常是一条链式结构，将「抽象处理者」的不同实现串联起来：
 如果当前节点能够处理任务则直接处理掉，如果无法处理则委托给责任链的下一个节点，如此往复直到有节点可以处理这个任务。</p>
@@ -182,24 +272,24 @@ Janus致力于优化API入口的七层协议接入，主要从下面几个方面
 </div>
 </div>
 <div class="sect2">
-<h3 id="_filter执行流程"><a class="anchor" href="#_filter执行流程"></a><a class="link" href="#_filter执行流程">3.2. filter执行流程</a></h3>
+<h3 id="_filter执行流程"><a class="anchor" href="#_filter执行流程"></a><a class="link" href="#_filter执行流程">4.2. filter执行流程</a></h3>
 
 </div>
 <div class="sect2">
-<h3 id="_invoke_filter设计"><a class="anchor" href="#_invoke_filter设计"></a><a class="link" href="#_invoke_filter设计">3.3. Invoke Filter设计</a></h3>
+<h3 id="_invoke_filter设计"><a class="anchor" href="#_invoke_filter设计"></a><a class="link" href="#_invoke_filter设计">4.3. Invoke Filter设计</a></h3>
 
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_janus_路由设计"><a class="anchor" href="#_janus_路由设计"></a><a class="link" href="#_janus_路由设计">4. Janus 路由设计</a></h2>
+<h2 id="_janus_路由设计"><a class="anchor" href="#_janus_路由设计"></a><a class="link" href="#_janus_路由设计">5. Janus 路由设计</a></h2>
 <div class="sectionbody">
 <div class="sect2">
-<h3 id="_路由模型设计"><a class="anchor" href="#_路由模型设计"></a><a class="link" href="#_路由模型设计">4.1. 路由模型设计</a></h3>
+<h3 id="_路由模型设计"><a class="anchor" href="#_路由模型设计"></a><a class="link" href="#_路由模型设计">5.1. 路由模型设计</a></h3>
 
 </div>
 <div class="sect2">
-<h3 id="_示例路由配置"><a class="anchor" href="#_示例路由配置"></a><a class="link" href="#_示例路由配置">4.2. 示例路由配置</a></h3>
+<h3 id="_示例路由配置"><a class="anchor" href="#_示例路由配置"></a><a class="link" href="#_示例路由配置">5.2. 示例路由配置</a></h3>
 <div class="listingblock">
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="yml"><span class="key">routes</span>:
@@ -297,24 +387,24 @@ Janus致力于优化API入口的七层协议接入，主要从下面几个方面
 </div>
 </div>
 <div class="sect1">
-<h2 id="_janus_predicates断言设计"><a class="anchor" href="#_janus_predicates断言设计"></a><a class="link" href="#_janus_predicates断言设计">5. Janus Predicates(断言设计)</a></h2>
+<h2 id="_janus_predicates断言设计"><a class="anchor" href="#_janus_predicates断言设计"></a><a class="link" href="#_janus_predicates断言设计">6. Janus Predicates(断言设计)</a></h2>
 <div class="sectionbody">
 <div class="sect2">
-<h3 id="_断言设计"><a class="anchor" href="#_断言设计"></a><a class="link" href="#_断言设计">5.1. 断言设计</a></h3>
+<h3 id="_断言设计"><a class="anchor" href="#_断言设计"></a><a class="link" href="#_断言设计">6.1. 断言设计</a></h3>
 
 </div>
 <div class="sect2">
-<h3 id="_精准匹配"><a class="anchor" href="#_精准匹配"></a><a class="link" href="#_精准匹配">5.2. 精准匹配</a></h3>
+<h3 id="_精准匹配"><a class="anchor" href="#_精准匹配"></a><a class="link" href="#_精准匹配">6.2. 精准匹配</a></h3>
 
 </div>
 <div class="sect2">
-<h3 id="_模糊匹配"><a class="anchor" href="#_模糊匹配"></a><a class="link" href="#_模糊匹配">5.3. 模糊匹配</a></h3>
+<h3 id="_模糊匹配"><a class="anchor" href="#_模糊匹配"></a><a class="link" href="#_模糊匹配">6.3. 模糊匹配</a></h3>
 
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_janus_netty中的设计"><a class="anchor" href="#_janus_netty中的设计"></a><a class="link" href="#_janus_netty中的设计">6. Janus Netty中的设计</a></h2>
+<h2 id="_janus_netty中的设计"><a class="anchor" href="#_janus_netty中的设计"></a><a class="link" href="#_janus_netty中的设计">7. Janus Netty中的设计</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>org.xujin.janus.core.netty.client.NettyConnectClient</p>
@@ -323,9 +413,9 @@ Janus致力于优化API入口的七层协议接入，主要从下面几个方面
 <p>org.xujin.janus.core.netty.server.NettyServer-&#8594;NettyServerHandler</p>
 </div>
 <div class="sect2">
-<h3 id="_janus_server的设计"><a class="anchor" href="#_janus_server的设计"></a><a class="link" href="#_janus_server的设计">6.1. Janus Server的设计</a></h3>
+<h3 id="_janus_server的设计"><a class="anchor" href="#_janus_server的设计"></a><a class="link" href="#_janus_server的设计">7.1. Janus Server的设计</a></h3>
 <div class="sect4">
-<h5 id="_网关接受请求的netty_server"><a class="anchor" href="#_网关接受请求的netty_server"></a><a class="link" href="#_网关接受请求的netty_server">6.1.1. 网关接受请求的Netty Server</a></h5>
+<h5 id="_网关接受请求的netty_server"><a class="anchor" href="#_网关接受请求的netty_server"></a><a class="link" href="#_网关接受请求的netty_server">7.1.1. 网关接受请求的Netty Server</a></h5>
 <div class="paragraph">
 <p>org.xujin.janus.core.netty.NettyServer.java</p>
 </div>
@@ -446,7 +536,7 @@ Janus致力于优化API入口的七层协议接入，主要从下面几个方面
 </div>
 </div>
 <div class="sect4">
-<h5 id="_网关转发调用内部源服务的client"><a class="anchor" href="#_网关转发调用内部源服务的client"></a><a class="link" href="#_网关转发调用内部源服务的client">6.1.2. 网关转发调用内部源服务的Client</a></h5>
+<h5 id="_网关转发调用内部源服务的client"><a class="anchor" href="#_网关转发调用内部源服务的client"></a><a class="link" href="#_网关转发调用内部源服务的client">7.1.2. 网关转发调用内部源服务的Client</a></h5>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -547,7 +637,7 @@ Janus致力于优化API入口的七层协议接入，主要从下面几个方面
 </div>
 </div>
 <div class="sect4">
-<h5 id="_网关转发调用源服务的连接池"><a class="anchor" href="#_网关转发调用源服务的连接池"></a><a class="link" href="#_网关转发调用源服务的连接池">6.1.3. 网关转发调用源服务的连接池</a></h5>
+<h5 id="_网关转发调用源服务的连接池"><a class="anchor" href="#_网关转发调用源服务的连接池"></a><a class="link" href="#_网关转发调用源服务的连接池">7.1.3. 网关转发调用源服务的连接池</a></h5>
 <div class="paragraph">
 <p>网关Server内置的Netty客户端不是每次转发都立即创建一个连接,而是从连接池中获取一个连接。</p>
 </div>
@@ -556,22 +646,22 @@ Janus致力于优化API入口的七层协议接入，主要从下面几个方面
 </div>
 </div>
 <div class="sect1">
-<h2 id="_rpc数据传输"><a class="anchor" href="#_rpc数据传输"></a><a class="link" href="#_rpc数据传输">7. RPC数据传输</a></h2>
+<h2 id="_rpc数据传输"><a class="anchor" href="#_rpc数据传输"></a><a class="link" href="#_rpc数据传输">8. RPC数据传输</a></h2>
 <div class="sectionbody">
 
 </div>
 </div>
 <div class="sect1">
-<h2 id="_http数据处理"><a class="anchor" href="#_http数据处理"></a><a class="link" href="#_http数据处理">8. http数据处理</a></h2>
+<h2 id="_http数据处理"><a class="anchor" href="#_http数据处理"></a><a class="link" href="#_http数据处理">9. http数据处理</a></h2>
 <div class="sectionbody">
 
 </div>
 </div>
 <div class="sect1">
-<h2 id="_janus监控告警系统设计"><a class="anchor" href="#_janus监控告警系统设计"></a><a class="link" href="#_janus监控告警系统设计">9. Janus监控告警系统设计</a></h2>
+<h2 id="_janus监控告警系统设计"><a class="anchor" href="#_janus监控告警系统设计"></a><a class="link" href="#_janus监控告警系统设计">10. Janus监控告警系统设计</a></h2>
 <div class="sectionbody">
 <div class="sect2">
-<h3 id="_背景"><a class="anchor" href="#_背景"></a><a class="link" href="#_背景">9.1. 背景</a></h3>
+<h3 id="_背景"><a class="anchor" href="#_背景"></a><a class="link" href="#_背景">10.1. 背景</a></h3>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -590,7 +680,7 @@ Janus致力于优化API入口的七层协议接入，主要从下面几个方面
 </div>
 </div>
 <div class="sect2">
-<h3 id="_应用场景"><a class="anchor" href="#_应用场景"></a><a class="link" href="#_应用场景">9.2. 应用场景</a></h3>
+<h3 id="_应用场景"><a class="anchor" href="#_应用场景"></a><a class="link" href="#_应用场景">10.2. 应用场景</a></h3>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -608,16 +698,16 @@ Janus致力于优化API入口的七层协议接入，主要从下面几个方面
 </div>
 </div>
 <div class="sect1">
-<h2 id="_waf2_0"><a class="anchor" href="#_waf2_0"></a><a class="link" href="#_waf2_0">10. WAF2.0</a></h2>
+<h2 id="_waf2_0"><a class="anchor" href="#_waf2_0"></a><a class="link" href="#_waf2_0">11. WAF2.0</a></h2>
 <div class="sectionbody">
 
 </div>
 </div>
 <div class="sect1">
-<h2 id="_janus限流方案设计"><a class="anchor" href="#_janus限流方案设计"></a><a class="link" href="#_janus限流方案设计">11. Janus限流方案设计</a></h2>
+<h2 id="_janus限流方案设计"><a class="anchor" href="#_janus限流方案设计"></a><a class="link" href="#_janus限流方案设计">12. Janus限流方案设计</a></h2>
 <div class="sectionbody">
 <div class="sect2">
-<h3 id="_需求"><a class="anchor" href="#_需求"></a><a class="link" href="#_需求">11.1. 需求</a></h3>
+<h3 id="_需求"><a class="anchor" href="#_需求"></a><a class="link" href="#_需求">12.1. 需求</a></h3>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -630,14 +720,14 @@ Janus致力于优化API入口的七层协议接入，主要从下面几个方面
 </div>
 <h1 id="janus-Admin-design" class="sect0"><a class="anchor" href="#janus-Admin-design"></a><a class="link" href="#janus-Admin-design">IV. janus Admin设计</a></h1>
 <div class="sect1">
-<h2 id="_数据库设计"><a class="anchor" href="#_数据库设计"></a><a class="link" href="#_数据库设计">12. 数据库设计</a></h2>
+<h2 id="_数据库设计"><a class="anchor" href="#_数据库设计"></a><a class="link" href="#_数据库设计">13. 数据库设计</a></h2>
 <div class="sectionbody">
 <div class="sect2">
-<h3 id="_db表结构设计"><a class="anchor" href="#_db表结构设计"></a><a class="link" href="#_db表结构设计">12.1. DB表结构设计</a></h3>
+<h3 id="_db表结构设计"><a class="anchor" href="#_db表结构设计"></a><a class="link" href="#_db表结构设计">13.1. DB表结构设计</a></h3>
 
 </div>
 <div class="sect2">
-<h3 id="_api的模型设计"><a class="anchor" href="#_api的模型设计"></a><a class="link" href="#_api的模型设计">12.2. API的模型设计</a></h3>
+<h3 id="_api的模型设计"><a class="anchor" href="#_api的模型设计"></a><a class="link" href="#_api的模型设计">13.2. API的模型设计</a></h3>
 <div class="listingblock">
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="yml">- <span class="string"><span class="content">id: 7</span></span> <span class="comment">#根据配置的多个Hosts不通过注册中心进行LB  #http://localhost:8081/admin7/menu/manage/allMenu2</span>
@@ -659,12 +749,12 @@ Janus致力于优化API入口的七层协议接入，主要从下面几个方面
 </div>
 </div>
 <div class="sect1">
-<h2 id="_janus_admin使用"><a class="anchor" href="#_janus_admin使用"></a><a class="link" href="#_janus_admin使用">13. Janus Admin使用</a></h2>
+<h2 id="_janus_admin使用"><a class="anchor" href="#_janus_admin使用"></a><a class="link" href="#_janus_admin使用">14. Janus Admin使用</a></h2>
 <div class="sectionbody">
 <div class="sect2">
-<h3 id="_api管理"><a class="anchor" href="#_api管理"></a><a class="link" href="#_api管理">13.1. API管理</a></h3>
+<h3 id="_api管理"><a class="anchor" href="#_api管理"></a><a class="link" href="#_api管理">14.1. API管理</a></h3>
 <div class="sect3">
-<h4 id="_新建api"><a class="anchor" href="#_新建api"></a><a class="link" href="#_新建api">13.1.1. 新建API</a></h4>
+<h4 id="_新建api"><a class="anchor" href="#_新建api"></a><a class="link" href="#_新建api">14.1.1. 新建API</a></h4>
 <div class="ulist">
 <ul>
 <li>
@@ -707,10 +797,10 @@ Janus致力于优化API入口的七层协议接入，主要从下面几个方面
 </div>
 </div>
 <div class="sect1">
-<h2 id="_开发者手册"><a class="anchor" href="#_开发者手册"></a><a class="link" href="#_开发者手册">14. 开发者手册</a></h2>
+<h2 id="_开发者手册"><a class="anchor" href="#_开发者手册"></a><a class="link" href="#_开发者手册">15. 开发者手册</a></h2>
 <div class="sectionbody">
 <div class="sect2">
-<h3 id="_启动janus_server"><a class="anchor" href="#_启动janus_server"></a><a class="link" href="#_启动janus_server">14.1. 启动Janus Server</a></h3>
+<h3 id="_启动janus_server"><a class="anchor" href="#_启动janus_server"></a><a class="link" href="#_启动janus_server">15.1. 启动Janus Server</a></h3>
 <div class="paragraph">
 <p>在IDEA中运行JanusServerApplication.java,设置启动参数即可。
 eg:-Dcluster=Janus_Test -Dlocal=true,如下图所示:</p>
@@ -740,7 +830,7 @@ eg:-Dcluster=Janus_Test -Dlocal=true,如下图所示:</p>
 <div id="footer">
 <div id="footer-text">
 version: 1.0.0.REALESE<br>
-Last updated 2020-07-15 07:55:52 UTC
+Last updated 2020-08-02 12:35:57 UTC
 </div>
 </div>
 </body>
